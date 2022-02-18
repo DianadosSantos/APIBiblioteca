@@ -8,9 +8,12 @@
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "Diana, Vinicius, Renato, Pedro",
+  "author": "Diana, Vinicius, Renato, Pedro, Aline",
   "license": "MIT",
   "dependencies": {
-    "nodemon": "^2.0.15"
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.16.1"
   }
 }
