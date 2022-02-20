@@ -9,7 +9,7 @@ module.exports = class UsuarioController {
         } 
         await Usuario.create(usuario)
         if(!usuario){
-            res.status().json({message: 'usuario invalido'})
+            res.status(402).json({message: 'usuario invalido'})
             return
         }
         res.status(201).json({message: `usuario - ${usuario.nome}` })
