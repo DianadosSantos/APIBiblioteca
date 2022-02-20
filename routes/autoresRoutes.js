@@ -7,4 +7,10 @@ router.post("/add", AutorController.criarAutor);
 
 router.get("/", AutorController.listarAutor);
 
+router.get('/:id', AutorController.mostrarAutor)
+
+router.post('/atualizar', AutorController.atualizarAutor)
+
+router.post('/remover', AutorController.removerAutor)
+
 module.exports = router;
