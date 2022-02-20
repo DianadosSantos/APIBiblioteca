@@ -53,4 +53,17 @@ module.exports = class UsuarioController {
 
         res.status(201).json({message: `usuario-${id}-alterado`})
     }
+
+    static async removerUsuario(req, res){
+        const id = req.body.id
+
+        if(!id){
+            res.status(402).json({message: 'parametro-usuario-id-nulo'})
+            return
+        }
+
+        await Usuario.destroy({where: {id: id}})
+
+        res.status(202).json({message: `usuario-#${id}-removido`})
+    }
 }
