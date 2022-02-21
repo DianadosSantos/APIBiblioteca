@@ -145,6 +145,25 @@ module.exports = class LivrosController {
         res.status(200).json({ message: `livro-#${livro.id}-adicionado-ao-usuario-#${UsuarioId}` });
     }
 
+    static async livrosDevolucao(req, res){
+        const usuarioId = req.body.usuarioId
+        const id = req.params.id
+
+        const usuario = await Usuario.findOne({where: {id: usuarioId}})
+        if(!usuario){
+            res.status(402).json({message: 'usuario-invalido'})
+            return
+        }
+        const livro={
+            UsuarioId: null,
+            status: true,
+        };
+        await Livro.update(livro, {where:{id:id, UsuarioId: usuarioId}})
+        res.status(200).json({message:`livro - ${id} - devolvido`})
+        
+    }
+    
+
     static async livrosPendentes(req, res){
         const livrosAtrasados = await Livro.findAll({where: {atrasado: true}})
 
