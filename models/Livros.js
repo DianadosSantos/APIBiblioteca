@@ -23,6 +23,14 @@ const Livro = db.define ("Livro",{
     status:{
         type: DataTypes.BOOLEAN,
         allowNull: false
+    },
+    dataEmprestimo:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    atrasado:{
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 })
 

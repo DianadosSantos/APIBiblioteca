@@ -146,13 +146,13 @@ module.exports = class LivrosController {
     }
 
     static async livrosPendentes(req, res){
-        const livrosAtrasados = await Livro.findAll({where: {atrasado: true}, raw: true})
+        const livrosAtrasados = await Livro.findAll({where: {atrasado: true}})
 
         if(!livrosAtrasados){
             res.status(402).json({message: 'livros-pendentes-nulo'})
             return
         }
 
-        res.status(202).json({livrosAtrasados})
+        res.status(202).json(livrosAtrasados)
     }
 }
