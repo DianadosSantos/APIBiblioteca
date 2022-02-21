@@ -10,5 +10,6 @@ router.post('/atualizar', LivrosController.atualizarLivro)
 router.post('/remover', LivrosController.removerLivro)
 router.post('/emprestar', LivrosController.emprestarLivro)
 router.get('/listar/pendentes', LivrosController.livrosPendentes)
+router.post('/devolucao/:id', LivrosController.livrosDevolucao)
 
 module.exports = router
