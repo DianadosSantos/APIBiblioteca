@@ -9,6 +9,6 @@ router.get('/:id', LivrosController.mostrarLivro)
 router.post('/atualizar', LivrosController.atualizarLivro)
 router.post('/remover', LivrosController.removerLivro)
 router.post('/emprestar', LivrosController.emprestarLivro)
-
+router.get('/pendentes', LivrosController.livrosPendentes)
 
 module.exports = router
