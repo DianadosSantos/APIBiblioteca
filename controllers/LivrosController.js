@@ -142,11 +142,9 @@ module.exports = class LivrosController {
       return;
     }
 
-    res
-      .status(200)
-      .json({
-        message: `livro-#${livro.id}-adicionado-ao-usuario-#${UsuarioId}`,
-      });
+    res.status(200).json({
+      message: `livro-#${livro.id}-adicionado-ao-usuario-#${UsuarioId}`,
+    });
   }
 
   static async livrosDevolucao(req, res) {
@@ -158,12 +156,39 @@ module.exports = class LivrosController {
       res.status(402).json({ message: "usuario-invalido" });
       return;
     }
-    const livro = {
+
+    const livro = await Livro.findOne({ where: { id: id } });
+
+    if (livro.status) {
+      res.status(401).json({ message: "usuario_nao_autorizado" });
+      return;
+    }
+
+    const livroAtt = {
+      dataEmprestimo: null,
       atrasado: false,
       UsuarioId: null,
       status: true,
     };
-    await Livro.update(livro, { where: { id: id, UsuarioId: usuarioId } });
+
+    await Livro.update(livroAtt, { where: { id: id, UsuarioId: usuarioId } });
+
+    const vencimento = moment(livro.dataEmprestimo).add(7, "days");
+    const diff = Math.floor(moment().diff(vencimento) / 86400000);
+
+    if (diff > 0) {
+      const multa = 1 * diff;
+      console.log(`Dias de atraso: ${diff}`);
+      console.log(`Multa: R$ ${multa}`);
+
+      res.status(200).json({
+        message: `livro_${id}_devolvido_com_atraso`,
+        atraso: `${diff} dias de atraso`,
+        multa: `Valor da multa: R$ ${multa}`,
+      });
+      return;
+    }
+
     res.status(200).json({ message: `livro - ${id} - devolvido` });
   }
 
