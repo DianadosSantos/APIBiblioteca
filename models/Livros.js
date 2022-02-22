@@ -20,7 +20,7 @@ const Livro = db.define ("Livro",{
         type: DataTypes.STRING,
         allowNull: false
     },
-    status:{
+    disponivel:{
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
