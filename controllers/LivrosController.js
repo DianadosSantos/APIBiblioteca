@@ -25,7 +25,7 @@ module.exports = class LivrosController {
       paginas: req.body.paginas,
       autor: autor.nome,
       AutorId,
-      status: true,
+      disponivel: true,
       UsuarioId: undefined,
       dataEmprestimo: undefined,
       atrasado: undefined,
@@ -86,7 +86,7 @@ module.exports = class LivrosController {
       paginas: req.body.paginas,
       autor: autor.nome,
       AutorId,
-      status: true,
+      disponivel: true,
     };
 
     await Livro.update(livro, { where: { id: livro.id } });
@@ -130,12 +130,12 @@ module.exports = class LivrosController {
     const livro = {
       id: req.body.id,
       UsuarioId: UsuarioId,
-      status: false,
+      disponivel: false,
       dataEmprestimo: dataEmprestimo,
       atrasado: atrasado,
     };
 
-    await Livro.update(livro, { where: { id: livro.id, status: true } });
+    await Livro.update(livro, { where: { id: livro.id, disponivel: true } });
 
     if (!livro) {
       res.status(402).json({ message: "livro-nulo" });
@@ -159,7 +159,7 @@ module.exports = class LivrosController {
 
     const livro = await Livro.findOne({ where: { id: id } });
 
-    if (livro.status) {
+    if (livro.disponivel) {
       res.status(401).json({ message: "usuario_nao_autorizado" });
       return;
     }
@@ -168,7 +168,7 @@ module.exports = class LivrosController {
       dataEmprestimo: null,
       atrasado: false,
       UsuarioId: null,
-      status: true,
+      disponivel: true,
     };
 
     await Livro.update(livroAtt, { where: { id: id, UsuarioId: usuarioId } });
