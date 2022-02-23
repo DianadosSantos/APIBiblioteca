@@ -26,8 +26,8 @@ app.use("/autores", autorRoutes);
 app.use("/livros", livrosRoutes);
 
 conn
-//.sync()
-.sync({force: true})
+.sync()
+//.sync({force: true})
 .then(() => {
     app.listen(porta);
 })
